@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+._*
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Local notes / scratch
+*.local
+notes/
+
+# Never commit secrets
+.env
+.env.*
+*.pem
+*.key

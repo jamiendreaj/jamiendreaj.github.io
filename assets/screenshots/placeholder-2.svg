@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#1b1b20"/>
+  <rect x="1" y="1" width="798" height="598" fill="none" stroke="#2a2a31"/>
+  <text x="400" y="290" font-family="Inter, sans-serif" font-size="26" fill="#a5a3ad" text-anchor="middle">App screenshot 2</text>
+  <text x="400" y="326" font-family="Inter, sans-serif" font-size="16" fill="#6a6873" text-anchor="middle">Drop your real screenshot here</text>
+</svg>

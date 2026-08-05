@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jamie Ndreaj — Builder & Problem-Solver</title>
+  <meta name="description" content="Self-taught builder who ships. Three iOS apps, a live e-commerce operation on automation I built, and a growing foundation in cybersecurity. Based in New York." />
+  <link rel="stylesheet" href="styles.css" />
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <!-- ===================== AURORA (liquid background) ===================== -->
+  <div class="aurora" aria-hidden="true">
+    <span class="blob b1"></span>
+    <span class="blob b2"></span>
+    <span class="blob b3"></span>
+    <span class="blob b4"></span>
+  </div>
+  <div class="rings" aria-hidden="true">
+    <span class="ring r1"></span>
+    <span class="ring r2"></span>
+    <span class="ring r3"></span>
+    <span class="ring r4"></span>
+    <span class="ring r5"></span>
+    <span class="ring r6"></span>
+  </div>
+  <div class="waves" aria-hidden="true">
+    <div class="wave w-back"></div>
+    <div class="wave w-front"></div>
+  </div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ===================== NAV ===================== -->
+  <header class="nav">
+    <a href="#top" class="brand">Jamie Ndreaj</a>
+    <nav class="nav-links">
+      <a href="#certs">Certifications</a>
+      <a href="#work">Work</a>
+      <a href="#education">Education</a>
+      <a href="#story">Story</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- ===================== HERO ===================== -->
+  <section id="top" class="hero">
+    <p class="eyebrow">Builder · Problem-Solver · New York</p>
+    <h1>I build things —<br /><span class="accent">and I finish them.</span></h1>
+    <p class="lede">
+      A self-taught builder who turns ideas into shipped products: three iOS
+      apps, a live e-commerce operation running on automation I wrote, and a
+      growing foundation in cybersecurity. Four languages, two continents, and
+      twelve years leading high-stakes deals across New York and Las Vegas —
+      now building in tech, and finishing what I start.
+    </p>
+    <div class="hero-actions">
+      <a href="#work" class="btn btn-primary">See what I've built</a>
+      <a href="#certs" class="btn btn-ghost">Certifications</a>
+    </div>
+  </section>
+
+  <!-- ===================== WORK ===================== -->
+  <section id="work" class="section">
+    <h2 class="section-title">Things I've shipped</h2>
+    <p class="section-intro">
+      I learn by building. Real products I designed, developed, and took through
+      the full pipeline end-to-end — including securing a live API with a proxy
+      after I caught a leaked key.
+    </p>
+
+    <!-- ---- NourishMe ---- -->
+    <article class="project">
+      <div class="project-media">
+        <div class="phone">
+          <div class="phone-screen splash splash-nourish">
+            <img class="app-icon" src="assets/screenshots/nourishme-icon.png" alt="NourishMe app icon" />
+            <span class="splash-name">NourishMe</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-body">
+        <h3>NourishMe</h3>
+        <p class="project-tagline">Your AI nutrition companion. <!-- edit tagline --></p>
+        <p class="project-desc">
+          [One or two sentences on what NourishMe helps people do, and who it's
+          for.] Designed, developed, and shipped end-to-end — from the interface
+          to a Claude-powered backend.
+        </p>
+        <ul class="tags">
+          <li>iOS</li><li>React Native</li><li>Expo</li><li>AI</li>
+        </ul>
+        <div class="project-links">
+          <a href="#" class="btn btn-small">App Store ↗</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- ---- LunaRest ---- -->
+    <article class="project project-reverse">
+      <div class="project-media">
+        <div class="phone">
+          <div class="phone-screen">
+            <img src="assets/screenshots/luna-home.png" alt="LunaRest home screen" />
+          </div>
+        </div>
+      </div>
+      <div class="project-body">
+        <h3>LunaRest</h3>
+        <p class="project-tagline">Better sleep, gently guided. <!-- edit tagline --></p>
+        <p class="project-desc">
+          [One or two sentences on the sleep problem LunaRest addresses and how
+          it helps.] Built and shipped solo, from concept through the App Store.
+        </p>
+        <ul class="tags">
+          <li>iOS</li><li>React Native</li><li>Expo</li><li>AI</li>
+        </ul>
+        <div class="project-links">
+          <a href="#" class="btn btn-small">App Store ↗</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- ---- Tutto AI (coming soon) ---- -->
+    <article class="project">
+      <div class="project-media">
+        <!-- App Store mockup: already device-framed, so no .phone wrapper. -->
+        <img
+          class="mockup"
+          src="assets/screenshots/tutto-mockup.png"
+          alt="Tutto AI voice screen, showing the plasma orb waiting for a question"
+          width="1100" height="2380" loading="lazy" decoding="async"
+        />
+      </div>
+      <div class="project-body">
+        <h3>Tutto AI <span class="badge">Coming soon</span></h3>
+        <p class="project-tagline">An AI assistant for everything. <!-- edit tagline --></p>
+        <p class="project-desc">
+          A Claude-powered AI assistant. During development I found a hardcoded
+          API key in the source, rotated it, and moved all API calls behind a
+          Cloudflare Worker proxy with token authentication — turning a live
+          credential leak into a secured, best-practice setup. [Edit freely.]
+        </p>
+        <ul class="tags">
+          <li>iOS</li><li>React Native</li><li>Claude API</li><li>Cloudflare Workers</li>
+        </ul>
+        <div class="project-links">
+          <a href="#" class="btn btn-small btn-ghost">Coming to the App Store</a>
+        </div>
+      </div>
+    </article>
+    <!-- ---- Buydropt (live store) ---- -->
+    <article class="project project-reverse">
+      <div class="project-media">
+        <div class="phone">
+          <div class="phone-screen splash splash-buydropt">
+            <span class="wordmark">Buydropt</span>
+            <span class="splash-name">Trending products, delivered fast</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-body">
+        <h3>Buydropt</h3>
+        <p class="project-tagline">A live e-commerce store — built and automated end-to-end.</p>
+        <p class="project-desc">
+          A US storefront I built on Shopify, with a custom content-and-reels
+          automation pipeline I wrote that publishes daily across Instagram,
+          Facebook, and YouTube. Real catalog, real ad campaigns, real orders.
+        </p>
+        <ul class="tags">
+          <li>Shopify</li><li>Node.js</li><li>Automation</li><li>Paid Ads</li>
+        </ul>
+        <div class="project-links">
+          <a href="https://buydropt.com" target="_blank" rel="noopener" class="btn btn-small">Visit store ↗</a>
+        </div>
+      </div>
+    </article>
+    <!-- ---- end project cards ---- -->
+  </section>
+
+  <!-- ===================== STORY ===================== -->
+  <section id="story" class="section story">
+    <h2 class="section-title">Short story</h2>
+    <div class="story-body">
+      <p>
+        I came to the United States alone at 24, by way of Albania and Italy,
+        speaking four languages and carrying one belief: you can build the life
+        you want if you learn fast and outwork the room.
+      </p>
+      <p>
+        For twelve years I did exactly that in real estate — closing high-stakes
+        deals across New York and Las Vegas as both agent and team leader.
+        Reading people, spotting the detail everyone else missed, and staying
+        calm when a lot of money was on the line. Those are security instincts
+        before they're sales instincts.
+      </p>
+      <p>
+        Then I taught myself to build. Not by going back to school, but by
+        actually shipping — three iOS apps through the full App Store pipeline,
+        and a live e-commerce operation running on automation I wrote myself. I
+        learned to understand systems from the inside: how they're made, and how
+        they break. In 2025 I went deeper still, earning the Google Cybersecurity
+        Certificate and a stack of security and IT credentials.
+      </p>
+      <p>
+        I'm looking for a role in New York where I can build, solve real
+        problems, and keep growing — on a team that values someone hands-on,
+        resourceful, and relentless about finishing what she starts.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== CERTIFICATIONS ===================== -->
+  <section id="certs" class="section">
+    <h2 class="section-title">Certifications</h2>
+    <p class="section-intro">I don't stop learning. A stack of 2025 cybersecurity and IT credentials, earned alongside building — and I'm still going.</p>
+    <ul class="cert-list">
+      <li class="cert">
+        <div class="cert-main">
+          <span class="cert-name">Google Cybersecurity Professional Certificate</span>
+          <span class="cert-issuer">Google · Coursera · 8-course program (Python, Linux, SQL, SIEM, IDS)</span>
+        </div>
+        <div class="cert-meta">
+          <a class="cert-verify" href="https://coursera.org/verify/professional-cert/4X8EIUP3CHTA" target="_blank" rel="noopener">Verify ↗</a>
+          <span class="cert-year">2025</span>
+        </div>
+      </li>
+      <li class="cert">
+        <div class="cert-main">
+          <span class="cert-name">CompTIA Security+ (SY0-701) — Exam Prep Completed</span>
+          <span class="cert-issuer">InfoSec · full curriculum complete, exam-ready</span>
+        </div>
+        <div class="cert-meta"><span class="cert-year">2025</span></div>
+      </li>
+      <li class="cert">
+        <div class="cert-main">
+          <span class="cert-name">Splunk Search Expert 101</span>
+          <span class="cert-issuer">Splunk · search, fields, reports &amp; alerts, dashboards</span>
+        </div>
+        <div class="cert-meta"><span class="cert-year">2025</span></div>
+      </li>
+      <li class="cert">
+        <div class="cert-main">
+          <span class="cert-name">Network Traffic Analysis with Wireshark</span>
+          <span class="cert-issuer">SkillUp · packet capture &amp; filtering, protocol analysis, DPI</span>
+        </div>
+        <div class="cert-meta"><span class="cert-year">2025</span></div>
+      </li>
+      <li class="cert">
+        <div class="cert-main">
+          <span class="cert-name">Google IT Support Foundations</span>
+          <span class="cert-issuer">Google · hardware, OS, networking, troubleshooting</span>
+        </div>
+        <div class="cert-meta"><span class="cert-year">2025</span></div>
+      </li>
+    </ul>
+
+    <h3 class="subhead">Currently studying</h3>
+    <ul class="cert-list">
+      <li class="cert cert-progress">
+        <div class="cert-main">
+          <span class="cert-name">CS50x — Introduction to Computer Science</span>
+          <span class="cert-issuer">HarvardX · edX</span>
+        </div>
+        <div class="cert-meta"><span class="cert-year">In progress</span></div>
+      </li>
+      <li class="cert cert-progress">
+        <div class="cert-main">
+          <span class="cert-name">Ethical Hacking with Open-Source Tools</span>
+          <span class="cert-issuer">IBM</span>
+        </div>
+        <div class="cert-meta"><span class="cert-year">In progress</span></div>
+      </li>
+      <li class="cert cert-progress">
+        <div class="cert-main">
+          <span class="cert-name">Ethical Hacking with Kali Linux</span>
+          <span class="cert-issuer">IBM</span>
+        </div>
+        <div class="cert-meta"><span class="cert-year">In progress</span></div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ===================== EDUCATION & BACKGROUND ===================== -->
+  <section id="education" class="section">
+    <h2 class="section-title">Education &amp; background</h2>
+    <ul class="cert-list">
+      <li class="cert">
+        <div class="cert-main">
+          <span class="cert-name">Foreign Languages &amp; Literature</span>
+          <span class="cert-issuer">Alma Mater Studiorum — University of Bologna, Italy</span>
+        </div>
+        <div class="cert-meta"><span class="cert-year">2010–2011</span></div>
+      </li>
+      <li class="cert">
+        <div class="cert-main">
+          <span class="cert-name">High School Diploma — Linguistic Lyceum</span>
+          <span class="cert-issuer">Liceo Guido Nolfi, Fano, Italy · foreign languages &amp; literature</span>
+        </div>
+        <div class="cert-meta"><span class="cert-year">2007</span></div>
+      </li>
+      <li class="cert">
+        <div class="cert-main">
+          <span class="cert-name">Licensed Real Estate Agent</span>
+          <span class="cert-issuer">New York City &amp; Las Vegas · 12 years, agent &amp; team leader</span>
+        </div>
+        <div class="cert-meta"><span class="cert-year">2016 · 2018</span></div>
+      </li>
+    </ul>
+    <p class="langs"><strong>Languages:</strong> Albanian · Italian · Spanish · English — all fluent.</p>
+  </section>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section id="contact" class="section contact">
+    <h2 class="section-title">Let's talk</h2>
+    <p class="contact-lede">Open to roles and collaborations in New York.</p>
+    <div class="contact-links">
+      <a href="mailto:jxnstudioapp@gmail.com" class="btn btn-primary">Email me</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> Jamie Ndreaj · Built with Claude Code</p>
+  </footer>
+
+  <!-- ===================== TUNER (preview-only) ===================== -->
+  <button class="tuner-toggle" id="tunerToggle" hidden>🎛 Tune the look</button>
+  <aside class="tuner" id="tuner" aria-label="Design tuner (preview only)">
+    <h4>Tune the look <button class="close" id="tunerClose" title="Hide">✕</button></h4>
+
+    <label>Motion speed <b id="vSpeed">1.0×</b></label>
+    <input type="range" id="cSpeed" min="0.3" max="2" step="0.1" value="1" />
+
+    <label>Intensity <b id="vInt">0.90</b></label>
+    <input type="range" id="cInt" min="0.2" max="1.4" step="0.05" value="0.9" />
+
+    <label>Softness <b id="vBlur">70px</b></label>
+    <input type="range" id="cBlur" min="30" max="130" step="5" value="70" />
+
+    <label>Violet glow <b id="vViolet">0.90</b></label>
+    <input type="range" id="cViolet" min="0" max="1.3" step="0.05" value="0.9" />
+
+    <label>Wave strength <b id="vWave">0.50</b></label>
+    <input type="range" id="cWave" min="0" max="1" step="0.05" value="0.5" />
+
+    <label>Clashing rings <b id="vRings">0.55</b></label>
+    <input type="range" id="cRings" min="0" max="1.2" step="0.05" value="0.55" />
+
+    <div class="row">
+      <input type="checkbox" id="cWaves" checked />
+      <label for="cWaves" style="margin:0;">Show liquid waves</label>
+    </div>
+
+    <div class="out" id="tunerOut">speed 1.0× · intensity 0.90 · softness 70px · violet 0.90 · waves on @ 0.50</div>
+  </aside>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ---- Design tuner (preview only; I bake in your choice and delete this) ----
+    (function () {
+      var root = document.documentElement, body = document.body;
+      var panel = document.getElementById('tuner');
+      var toggle = document.getElementById('tunerToggle');
+      var out = document.getElementById('tunerOut');
+      var els = {
+        speed: document.getElementById('cSpeed'), int: document.getElementById('cInt'),
+        blur: document.getElementById('cBlur'), violet: document.getElementById('cViolet'),
+        wave: document.getElementById('cWave'), waves: document.getElementById('cWaves'),
+        rings: document.getElementById('cRings'),
+      };
+      var lbl = {
+        speed: document.getElementById('vSpeed'), int: document.getElementById('vInt'),
+        blur: document.getElementById('vBlur'), violet: document.getElementById('vViolet'),
+        wave: document.getElementById('vWave'), rings: document.getElementById('vRings'),
+      };
+      function apply() {
+        root.style.setProperty('--speed', els.speed.value);
+        root.style.setProperty('--aurora-opacity', els.int.value);
+        root.style.setProperty('--blob-blur', els.blur.value + 'px');
+        root.style.setProperty('--violet-strength', els.violet.value);
+        root.style.setProperty('--wave-opacity', els.wave.value);
+        root.style.setProperty('--rings-opacity', els.rings.value);
+        body.classList.toggle('show-waves', els.waves.checked);
+        lbl.speed.textContent = parseFloat(els.speed.value).toFixed(1) + '×';
+        lbl.int.textContent = parseFloat(els.int.value).toFixed(2);
+        lbl.blur.textContent = els.blur.value + 'px';
+        lbl.violet.textContent = parseFloat(els.violet.value).toFixed(2);
+        lbl.wave.textContent = parseFloat(els.wave.value).toFixed(2);
+        lbl.rings.textContent = parseFloat(els.rings.value).toFixed(2);
+        out.textContent = 'speed ' + parseFloat(els.speed.value).toFixed(1) + '× · intensity ' +
+          parseFloat(els.int.value).toFixed(2) + ' · softness ' + els.blur.value + 'px · violet ' +
+          parseFloat(els.violet.value).toFixed(2) + ' · rings ' + parseFloat(els.rings.value).toFixed(2) +
+          ' · waves ' + (els.waves.checked ? ('on @ ' + parseFloat(els.wave.value).toFixed(2)) : 'off');
+      }
+      Object.values(els).forEach(function (el) { el.addEventListener('input', apply); });
+      document.getElementById('tunerClose').addEventListener('click', function () {
+        panel.hidden = true; toggle.hidden = false;
+      });
+      toggle.addEventListener('click', function () { panel.hidden = false; toggle.hidden = true; });
+      apply();
+    })();
+
+    // ---- Fluid scroll reveal (Apple-style: rise + fade, staggered) ----
+    (function () {
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Elements that rise into view. Grouped so siblings stagger together.
+      var groups = [
+        ['.hero > *'],
+        ['.section-title', '.section-intro', '.subhead'],
+        ['.project'],
+        ['.cert'],
+        ['.langs'],
+        ['.story-body p'],
+        ['.contact-lede', '.contact-links'],
+      ];
+
+      var items = [];
+      groups.forEach(function (selectors) {
+        selectors.forEach(function (sel) {
+          document.querySelectorAll(sel).forEach(function (el) {
+            el.classList.add('reveal');
+            items.push(el);
+          });
+        });
+      });
+
+      if (reduce || !('IntersectionObserver' in window)) {
+        items.forEach(function (el) { el.classList.add('is-visible'); });
+        return;
+      }
+
+      var io = new IntersectionObserver(function (entries, obs) {
+        // Stagger reveals that land in the same frame.
+        var revealing = entries.filter(function (e) { return e.isIntersecting; });
+        revealing.forEach(function (entry, i) {
+          var el = entry.target;
+          var delay = Math.min(i * 60, 240); // cap the stagger so it never drags
+          el.style.transitionDelay = delay + 'ms';
+          el.classList.add('is-visible');
+          obs.unobserve(el);
+          // once the reveal is done: clear the delay (so hover stays snappy)
+          // and release will-change (frees compositor memory)
+          setTimeout(function () {
+            el.style.transitionDelay = '';
+            el.style.willChange = 'auto';
+          }, delay + 750);
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+      items.forEach(function (el) { io.observe(el); });
+    })();
+
+    // ---- Living background: pointer + scroll parallax (spring-eased) ----
+    (function () {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+      var aurora = document.querySelector('.aurora');
+      var rings = document.querySelector('.rings');
+      if (!aurora) return;
+      var tx = 0, ty = 0, cx = 0, cy = 0, sy = 0, csy = 0;
+      window.addEventListener('pointermove', function (e) {
+        tx = (e.clientX / window.innerWidth - 0.5);
+        ty = (e.clientY / window.innerHeight - 0.5);
+      }, { passive: true });
+      window.addEventListener('scroll', function () { sy = window.scrollY; }, { passive: true });
+      (function loop() {
+        cx += (tx - cx) * 0.05;           // lerp toward target = spring feel
+        cy += (ty - cy) * 0.05;
+        csy += (sy - csy) * 0.08;
+        // aurora drifts a little with the cursor and floats up as you scroll
+        aurora.style.transform = 'translate3d(' + (cx * 26) + 'px,' + (cy * 26 - csy * 0.04) + 'px,0)';
+        if (rings) rings.style.transform = 'translate3d(' + (cx * -40) + 'px,' + (cy * -40 - csy * 0.02) + 'px,0)';
+        requestAnimationFrame(loop);
+      })();
+    })();
+
+    // ---- Specular highlight tracking on glass cards ----
+    (function () {
+      if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+      document.querySelectorAll('.project').forEach(function (card) {
+        card.addEventListener('pointermove', function (e) {
+          var r = card.getBoundingClientRect();
+          card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+          card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+        });
+      });
+    })();
+
+    // ---- Magnetic primary button ----
+    (function () {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+      document.querySelectorAll('.btn-primary').forEach(function (btn) {
+        btn.addEventListener('pointermove', function (e) {
+          var r = btn.getBoundingClientRect();
+          var mx = e.clientX - (r.left + r.width / 2);
+          var my = e.clientY - (r.top + r.height / 2);
+          btn.style.transform = 'translate(' + (mx * 0.25) + 'px,' + (my * 0.35) + 'px)';
+        });
+        btn.addEventListener('pointerleave', function () { btn.style.transform = ''; });
+      });
+    })();
+  </script>
+</body>
+</html>
