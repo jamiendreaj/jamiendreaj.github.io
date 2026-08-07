@@ -69,57 +69,7 @@
       after I caught a leaked key.
     </p>
 
-    <!-- ---- NourishMe ---- -->
-    <article class="project">
-      <div class="project-media">
-        <div class="phone">
-          <div class="phone-screen splash splash-nourish">
-            <img class="app-icon" src="assets/screenshots/nourishme-icon.png" alt="NourishMe app icon" />
-            <span class="splash-name">NourishMe</span>
-          </div>
-        </div>
-      </div>
-      <div class="project-body">
-        <h3>NourishMe</h3>
-        <p class="project-tagline">Your AI nutrition companion. <!-- edit tagline --></p>
-        <p class="project-desc">
-          [One or two sentences on what NourishMe helps people do, and who it's
-          for.] Designed, developed, and shipped end-to-end — from the interface
-          to a Claude-powered backend.
-        </p>
-        <ul class="tags">
-          <li>iOS</li><li>React Native</li><li>Expo</li><li>AI</li>
-        </ul>
-        <div class="project-links">
-          <a href="#" class="btn btn-small">App Store ↗</a>
-        </div>
-      </div>
-    </article>
 
-    <!-- ---- LunaRest ---- -->
-    <article class="project project-reverse">
-      <div class="project-media">
-        <div class="phone">
-          <div class="phone-screen">
-            <img src="assets/screenshots/luna-home.png" alt="LunaRest home screen" />
-          </div>
-        </div>
-      </div>
-      <div class="project-body">
-        <h3>LunaRest</h3>
-        <p class="project-tagline">Better sleep, gently guided. <!-- edit tagline --></p>
-        <p class="project-desc">
-          [One or two sentences on the sleep problem LunaRest addresses and how
-          it helps.] Built and shipped solo, from concept through the App Store.
-        </p>
-        <ul class="tags">
-          <li>iOS</li><li>React Native</li><li>Expo</li><li>AI</li>
-        </ul>
-        <div class="project-links">
-          <a href="#" class="btn btn-small">App Store ↗</a>
-        </div>
-      </div>
-    </article>
 
     <!-- ---- Tutto AI (coming soon) ---- -->
     <article class="project">
@@ -134,18 +84,78 @@
       </div>
       <div class="project-body">
         <h3>Tutto AI <span class="badge">Coming soon</span></h3>
-        <p class="project-tagline">An AI assistant for everything. <!-- edit tagline --></p>
+        <p class="project-tagline">Everything AI, in one app.</p>
         <p class="project-desc">
-          A Claude-powered AI assistant. During development I found a hardcoded
-          API key in the source, rotated it, and moved all API calls behind a
-          Cloudflare Worker proxy with token authentication — turning a live
-          credential leak into a secured, best-practice setup. [Edit freely.]
+          A Claude-powered assistant that replaces a handful of single-purpose
+          apps: chat, translation across 12 languages, text and PDF summarising,
+          image analysis, and hands-free voice conversations. I designed and
+          built it end-to-end. During development I found a hardcoded API key in
+          the source, rotated it, and moved every request behind a Cloudflare
+          Worker proxy with token authentication — then added an explicit consent
+          step so nothing reaches an AI provider until the user agrees.
         </p>
         <ul class="tags">
           <li>iOS</li><li>React Native</li><li>Claude API</li><li>Cloudflare Workers</li>
         </ul>
         <div class="project-links">
-          <a href="#" class="btn btn-small btn-ghost">Coming to the App Store</a>
+          <span class="btn btn-small btn-ghost" aria-disabled="true">Coming to the App Store</span>
+        </div>
+      </div>
+    </article>
+    <!-- ---- NourishMe ---- -->
+    <article class="project project-reverse">
+      <div class="project-media">
+        <div class="phone">
+          <div class="phone-screen splash splash-nourish">
+            <img class="app-icon" src="assets/screenshots/nourishme-icon.png" alt="NourishMe app icon" />
+            <span class="splash-name">NourishMe</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-body">
+        <h3>NourishMe</h3>
+        <p class="project-tagline">Eat well. Stay private.</p>
+        <p class="project-desc">
+          A nutrition tracker for people who don&rsquo;t want their health data
+          sold. Scan a barcode or point the camera at a plate and AI works out
+          what you&rsquo;re eating. It goes past calories and macros to
+          micronutrients &mdash; fibre, sodium, iron, calcium, magnesium,
+          potassium &mdash; with recipes, meal plans, goal planning, trends and
+          exportable history, alongside weight, water and Apple Health step
+          tracking. Every screen translated into English, Italian and Spanish.
+        </p>
+        <ul class="tags">
+          <li>iOS</li><li>React Native</li><li>Expo</li><li>AI Vision</li><li>Apple Health</li>
+        </ul>
+        <div class="project-links">
+          <a href="https://apps.apple.com/us/app/nourishme-ai-nutrition/id6766461839" target="_blank" rel="noopener" class="btn btn-small">App Store ↗</a>
+        </div>
+      </div>
+    </article>
+    <!-- ---- LunaRest ---- -->
+    <article class="project">
+      <div class="project-media">
+        <div class="phone">
+          <div class="phone-screen">
+            <img src="assets/screenshots/luna-home.png" alt="LunaRest home screen" />
+          </div>
+        </div>
+      </div>
+      <div class="project-body">
+        <h3>LunaRest</h3>
+        <p class="project-tagline">Better sleep, gently guided.</p>
+        <p class="project-desc">
+          A sleep app for the whole night, not just bedtime. Soundscapes and
+          white noise for drifting off, a recorder that captures snoring and
+          night sounds so you can hear what actually happened, and breathing and
+          wellness tools for winding down. Built and shipped solo, from concept
+          to the App Store.
+        </p>
+        <ul class="tags">
+          <li>iOS</li><li>React Native</li><li>Expo</li><li>Audio</li>
+        </ul>
+        <div class="project-links">
+          <a href="https://apps.apple.com/us/app/lunarest/id6769334639" target="_blank" rel="noopener" class="btn btn-small">App Store ↗</a>
         </div>
       </div>
     </article>
