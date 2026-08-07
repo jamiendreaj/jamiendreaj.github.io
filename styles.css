@@ -423,6 +423,13 @@ a:focus-visible,
 .splash-tutto { background: #000; }
 .splash-tutto .app-icon { width: 62%; border-radius: 0; box-shadow: none; }
 .splash-tutto .splash-name { color: #f2f2f2; }
+.splash-stayvetted { background: radial-gradient(120% 90% at 50% 20%, #14384b, #060f16); padding: 0 8px; }
+.splash-stayvetted .wordmark {
+  font-size: 1.15rem; font-weight: 800; letter-spacing: -0.02em;
+  background: var(--metal); -webkit-background-clip: text; background-clip: text; color: transparent;
+  margin-bottom: 8px;
+}
+.splash-stayvetted .splash-name { font-size: 0.78rem; text-align: center; color: var(--text-dim); }
 .splash-buydropt { background: radial-gradient(120% 90% at 50% 20%, #14314b, #060d16); padding: 0 8px; }
 .splash-buydropt .wordmark {
   font-size: 2rem;
