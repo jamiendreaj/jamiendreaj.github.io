@@ -6,6 +6,7 @@
    ============================================================ */
 
 :root {
+  color-scheme: dark;
   /* palette — dark (default) : deep ink-teal water */
   --bg: #050a12;
   --bg-2: #0a1521;
@@ -44,28 +45,6 @@
   --radius: 22px;
   --radius-sm: 14px;
   --max: 1080px;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg: #eaf2f7;             /* icy white */
-    --bg-2: #dceaf1;
-    --card: rgba(255, 255, 255, 0.55);
-    --card-hover: rgba(255, 255, 255, 0.75);
-    --text: #142430;
-    --text-dim: #566772;
-    --accent: #1f8fa6;
-    --accent-2: #156b7f;
-    --iris: #5b6fd8;
-    --border: rgba(20, 60, 80, 0.12);
-    --hairline: rgba(20, 60, 80, 0.1);
-    --shadow: 0 24px 55px -28px rgba(20, 60, 90, 0.35);
-    --metal: linear-gradient(100deg, #2b7f95 0%, #0f4b5c 30%, #2b8ea3 58%, #4a6b8a 82%, #16323e 100%);
-    --a1: rgba(120, 210, 230, 0.5);
-    --a2: rgba(150, 195, 230, 0.5);
-    --a3: rgba(180, 195, 245, 0.45);
-    --a4: rgba(210, 235, 245, 0.6);
-  }
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -118,9 +97,6 @@ img { max-width: 100%; display: block; }
   animation-iteration-count: infinite;
   animation-direction: alternate;
   animation-duration: calc(var(--dur) / var(--speed));
-}
-@media (prefers-color-scheme: light) {
-  .blob { mix-blend-mode: multiply; }
 }
 .b1 { --dur: 26s; width: 46vmax; height: 46vmax; left: 4%;  top: 2%;  background: radial-gradient(circle, var(--a1), transparent 68%); animation-name: drift1; }
 .b2 { --dur: 32s; width: 40vmax; height: 40vmax; right: 2%; top: 12%; background: radial-gradient(circle, var(--a2), transparent 66%); animation-name: drift2; }
