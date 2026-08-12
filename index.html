@@ -66,8 +66,8 @@
     <h2 class="section-title">Things I've shipped</h2>
     <p class="section-intro">
       I learn by building. Real products I designed, developed, and took through
-      the full pipeline end-to-end — including securing a live API with a proxy
-      after I caught a leaked key.
+      the full pipeline end-to-end — architecture, interface, API integration and
+      App Store review.
     </p>
 
 
@@ -89,11 +89,11 @@
         <p class="project-desc">
           A Claude-powered assistant that replaces a handful of single-purpose
           apps: chat, translation across 12 languages, text and PDF summarising,
-          image analysis, and hands-free voice conversations. I designed and
-          built it end-to-end. During development I found a hardcoded API key in
-          the source, rotated it, and moved every request behind a Cloudflare
-          Worker proxy with token authentication — then added an explicit consent
-          step so nothing reaches an AI provider until the user agrees.
+          image analysis, and hands-free voice conversations. I designed and built
+          it end-to-end, including the backend: API credentials are held
+          server-side in a Cloudflare Worker proxy with token authentication, and
+          an explicit consent step means nothing reaches an AI provider until the
+          user agrees to it.
         </p>
         <ul class="tags">
           <li>iOS</li><li>React Native</li><li>Claude API</li><li>Cloudflare Workers</li>
