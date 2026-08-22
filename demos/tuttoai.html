@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TuttoAI Walkthrough</title>
+<style>
+  :root {
+    --paper: #F1F3EF;
+    --paper-raised: #FBFCFA;
+    --ink: #171B18;
+    --ink-soft: #4B534E;
+    --line: #D7DCD3;
+    --accent: #1B6E6A;
+    --accent-soft: #E3EEEC;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #14181A; --paper-raised: #1B2023; --ink: #E7EBE6;
+      --ink-soft: #A2ADA5; --line: #313A36; --accent: #58C2BB; --accent-soft: #1E3634;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #14181A; --paper-raised: #1B2023; --ink: #E7EBE6;
+    --ink-soft: #A2ADA5; --line: #313A36; --accent: #58C2BB; --accent-soft: #1E3634;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); }
+
+  .page { max-width: 920px; margin: 0 auto; padding: 3.5rem 1.5rem 5rem; }
+
+  .eyebrow {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .eyebrow::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex: none; }
+  .back-link { display: inline-block; font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.76rem; color: var(--ink-soft); text-decoration: none; margin-bottom: 1.4rem; }
+  .back-link:hover { color: var(--accent); }
+  h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 500;
+    font-size: clamp(2rem, 5vw, 2.7rem);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    margin: 0.6rem 0 0.8rem;
+    max-width: 20ch;
+  }
+  .dek { font-size: 1.05rem; color: var(--ink-soft); max-width: 56ch; margin: 0 0 0.4rem; }
+  .companion {
+    font-size: 0.88rem; color: var(--ink-soft); margin: 0.9rem 0 0;
+    padding-top: 0.9rem; border-top: 1px solid var(--line);
+  }
+
+  /* ---- Layout: phone + rail ---- */
+  .demo {
+    display: grid;
+    grid-template-columns: minmax(260px, 320px) 1fr;
+    gap: 2.5rem;
+    align-items: start;
+    margin-top: 3rem;
+  }
+  @media (max-width: 720px) {
+    .demo { grid-template-columns: 1fr; justify-items: center; }
+  }
+
+  /* ---- Phone frame ---- */
+  .phone-wrap { display: flex; flex-direction: column; align-items: center; gap: 1.2rem; }
+  .phone {
+    width: 290px;
+    height: 592px;
+    background: #000;
+    border-radius: 42px;
+    padding: 12px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15), 0 30px 60px -20px rgba(0,0,0,0.45);
+    position: relative;
+  }
+  .screen {
+    width: 100%; height: 100%;
+    border-radius: 32px;
+    overflow: hidden;
+    position: relative;
+    background: #0a0b0d;
+  }
+  .notch {
+    position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+    width: 90px; height: 22px; background: #000; border-radius: 12px; z-index: 20;
+  }
+  .statusbar {
+    position: absolute; top: 0; left: 0; right: 0; height: 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 18px; font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.62rem;
+    color: #fff; z-index: 15; opacity: 0.85;
+  }
+
+  .pane {
+    position: absolute; inset: 0;
+    opacity: 0; visibility: hidden; transform: translateY(6px);
+    transition: opacity 0.32s ease, transform 0.32s ease;
+    color: #fff; font-family: system-ui, -apple-system, sans-serif;
+  }
+  .pane.active { opacity: 1; visibility: visible; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    .pane { transition: opacity 0.01s linear; transform: none; }
+  }
+
+  .app-top {
+    position: absolute; top: 40px; left: 0; right: 0; height: 36px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 16px; font-size: 0.78rem; font-weight: 600; z-index: 10;
+    background: rgba(10,11,13,0.7);
+  }
+  .app-top .brand { display: flex; align-items: center; gap: 6px; }
+  .app-top .pro { color: #cfd8d6; font-size: 0.68rem; display:flex; align-items:center; gap:4px; }
+
+  /* Orb */
+  .orb-stage { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 60px; }
+  .orb-label { font-size: 0.68rem; letter-spacing: 0.2em; color: #cfd8d6; margin-bottom: 1.6rem; text-transform: uppercase; }
+  .orb {
+    width: 190px; height: 190px; border-radius: 50%;
+    background:
+      radial-gradient(circle at 35% 30%, rgba(150,230,255,0.95), transparent 45%),
+      radial-gradient(circle at 65% 65%, rgba(60,140,255,0.85), transparent 55%),
+      radial-gradient(circle at 50% 50%, #0d2a4a, #050912 75%);
+    box-shadow: 0 0 60px 10px rgba(80,180,255,0.35), inset 0 0 40px rgba(150,220,255,0.25);
+    animation: pulse 3.2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); filter: brightness(1); }
+    50% { transform: scale(1.045); filter: brightness(1.18); }
+  }
+  @media (prefers-reduced-motion: reduce) { .orb { animation: none; } }
+  .orb-caption { margin-top: 2rem; font-size: 1.15rem; font-weight: 700; text-align: center; line-height: 1.3; padding: 0 1.5rem; }
+  .orb-caption em { color: #7fd4ff; font-style: normal; }
+
+  /* Consent */
+  .consent { position: absolute; inset: 0; padding: 78px 20px 20px; display: flex; flex-direction: column; background: #0a0b0d; }
+  .consent h3 { font-size: 1.15rem; margin: 0 0 0.7rem; font-weight: 600; }
+  .consent p { font-size: 0.76rem; line-height: 1.55; color: #cfd6d3; margin: 0 0 0.8rem; flex: 1; overflow-y: auto; }
+  .consent .btns { display: flex; flex-direction: column; gap: 0.5rem; }
+  .btn-primary { background: #58C2BB; color: #06201e; border: none; border-radius: 10px; padding: 0.75rem; font-weight: 700; font-size: 0.8rem; letter-spacing: 0.03em; }
+  .btn-secondary { background: transparent; color: #cfd6d3; border: 1px solid #3a4340; border-radius: 10px; padding: 0.7rem; font-size: 0.78rem; }
+
+  /* Chat */
+  .chat { position: absolute; inset: 0; padding-top: 76px; display: flex; flex-direction: column; }
+  .msgs { flex: 1; padding: 10px 14px; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; }
+  .bubble { max-width: 82%; padding: 0.55rem 0.75rem; border-radius: 12px; font-size: 0.78rem; line-height: 1.42; }
+  .bubble.user { align-self: flex-end; background: #58C2BB; color: #06201e; border-bottom-right-radius: 4px; }
+  .bubble.ai { align-self: flex-start; background: #1c2124; color: #e7ebe6; border-bottom-left-radius: 4px; }
+  .composer { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-top: 1px solid #22282b; }
+  .composer .field { flex: 1; background: #1c2124; border-radius: 20px; padding: 0.5rem 0.9rem; font-size: 0.72rem; color: #7a8380; }
+  .tabbar { display: flex; justify-content: space-around; padding: 8px 4px; border-top: 1px solid #22282b; font-size: 0.56rem; color: #6b746f; }
+  .tabbar .on { color: #58C2BB; font-weight: 600; }
+
+  /* Paywall */
+  .paywall { position: absolute; inset: 0; background: #0a0b0d; padding: 44px 20px 18px; display: flex; flex-direction: column; overflow-y: auto; }
+  .paywall .x { align-self: flex-end; color: #6b746f; font-size: 1rem; margin-bottom: 0.6rem; }
+  .paywall h3 { text-align: center; font-size: 1.05rem; letter-spacing: 0.03em; margin: 0 0 0.2rem; }
+  .paywall .sub { text-align: center; font-size: 0.72rem; color: #a7afac; margin: 0 0 1rem; }
+  .benefits { list-style: none; margin: 0 0 1rem; padding: 0; display: flex; flex-direction: column; gap: 0.42rem; }
+  .benefits li { font-size: 0.72rem; color: #cfd6d3; display: flex; gap: 0.5rem; align-items: baseline; }
+  .benefits li::before { content: "✦"; color: #58C2BB; font-size: 0.62rem; }
+  .price-card { border: 1px solid #2c3330; border-radius: 12px; padding: 0.8rem 0.9rem; margin-bottom: 0.7rem; }
+  .price-card .badge { display: inline-block; background: #fff; color: #06201e; font-size: 0.58rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 20px; margin-bottom: 0.4rem; }
+  .price-card .amt { font-size: 1.2rem; font-weight: 700; }
+  .price-card .per { font-size: 0.68rem; color: #8a928e; }
+  .paywall .subscribe { background: #fff; color: #0a0b0d; border: none; border-radius: 10px; padding: 0.7rem; font-weight: 700; font-size: 0.76rem; margin-bottom: 0.5rem; }
+  .paywall .monthly { background: transparent; border: 1px solid #2c3330; color: #cfd6d3; border-radius: 10px; padding: 0.6rem; font-size: 0.72rem; }
+  .paywall .restore { text-align: center; font-size: 0.66rem; color: #6b746f; margin-top: 0.6rem; }
+
+  /* Welcome */
+  .welcome { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 1.6rem; background: radial-gradient(circle at 50% 40%, #0d1f2e, #05070a 70%); }
+  .welcome .wordmark { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 0.4rem; }
+  .welcome .wordmark span { color: #58C2BB; }
+  .welcome .tag { font-size: 0.85rem; color: #a7afac; margin-bottom: 2.2rem; }
+  .welcome .go { background: #58C2BB; color: #06201e; border: none; border-radius: 24px; padding: 0.7rem 1.8rem; font-weight: 700; font-size: 0.8rem; }
+
+  /* ---- Controls ---- */
+  .dots { display: flex; gap: 0.5rem; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--line); border: none; cursor: pointer; padding: 0; }
+  .dot.on { background: var(--accent); }
+
+  .tabs {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+  }
+  .tab {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.72rem;
+    background: var(--paper-raised); border: 1px solid var(--line); color: var(--ink-soft);
+    border-radius: 20px; padding: 0.45rem 0.9rem; cursor: pointer;
+  }
+  .tab.on { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); font-weight: 500; }
+
+  /* ---- Right rail: caption ---- */
+  .rail { padding-top: 0.3rem; }
+  .rail-tag {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.7rem; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; font-weight: 500;
+  }
+  .rail h2 { font-family: Georgia, "Times New Roman", serif; font-weight: 500; font-size: 1.4rem; margin: 0 0 0.8rem; letter-spacing: -0.01em; }
+  .rail p { font-size: 0.98rem; color: var(--ink-soft); margin: 0 0 0.9rem; max-width: 52ch; }
+  .rail .steps {
+    margin-top: 1.1rem; padding: 0 0 0 1.1rem; font-size: 0.94rem; color: var(--ink);
+    display: flex; flex-direction: column; gap: 0.4rem;
+  }
+  .rail .steps-label {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.68rem; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink-soft); margin: 1.1rem 0 0.5rem; font-weight: 500;
+  }
+  .rail .tie {
+    margin-top: 1rem; padding: 0.85rem 1rem; background: var(--accent-soft);
+    border-left: 3px solid var(--accent); border-radius: 0 3px 3px 0; font-size: 0.9rem;
+  }
+  .rail .tie b { display: block; font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.3rem; font-weight: 500; }
+
+  footer {
+    margin-top: 4rem; padding-top: 1.4rem; border-top: 1px solid var(--line);
+    font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.72rem; color: var(--ink-soft);
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <a class="back-link" href="../index.html#work">← Back to portfolio</a>
+  <div class="eyebrow">Product walkthrough · project 1 of 5</div>
+  <h1>Click through the real TuttoAI</h1>
+  <p class="dek">Five screens rebuilt from the shipping app's actual copy and layout — including the exact consent flow that fixed an App Store rejection. Not mockups of an idea: the thing that's live.</p>
+
+  <div class="demo">
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="screen" id="screen">
+          <div class="notch"></div>
+          <div class="statusbar"><span>12:48</span><span>●●●●</span></div>
+
+          <div class="pane active" data-pane="welcome">
+            <div class="welcome">
+              <div class="wordmark">∞<span>AI</span> &nbsp;TUTTO AI</div>
+              <div class="tag">Know it all. Know it now.</div>
+              <button class="go">Get Started</button>
+            </div>
+          </div>
+
+          <div class="pane" data-pane="consent">
+            <div class="consent">
+              <h3>Before Tutto AI can answer</h3>
+              <p>To answer you, the text you send — and any image or PDF you attach — is sent to <b>Anthropic PBC</b>, which runs the Claude AI model. If you use spoken replies, the answer text is sent to <b>ElevenLabs</b> to generate the audio. Neither company uses your data to train their AI models.<br><br>Your conversations, profile and memory stay stored only on this device — there's no server holding them otherwise.</p>
+              <div class="btns">
+                <button class="btn-primary">Allow AI Responses</button>
+                <button class="btn-secondary">Not Now</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="pane" data-pane="chat">
+            <div class="chat">
+              <div class="app-top"><span class="brand">∞AI 🔥1</span><span class="pro">✦ Pro ⚙</span></div>
+              <div class="msgs">
+                <div class="bubble user">Summarize this PDF and pull out the deadlines</div>
+                <div class="bubble ai">Three deadlines found — Aug 28 (draft due), Sep 4 (review), Sep 12 (final submission). Want the full breakdown?</div>
+                <div class="bubble user">Just the breakdown</div>
+              </div>
+              <div class="composer"><div class="field">Message Tutto AI…</div></div>
+              <div class="tabbar"><span>Chat</span><span>Translate</span><span class="on">Voice</span><span>Summarize</span><span>Analyze</span><span>Prompts</span></div>
+            </div>
+          </div>
+
+          <div class="pane" data-pane="voice">
+            <div class="orb-stage">
+              <div class="orb-label">Listening</div>
+              <div class="orb"></div>
+              <div class="orb-caption">Talk to it in <em>your voice</em></div>
+            </div>
+          </div>
+
+          <div class="pane" data-pane="pro">
+            <div class="paywall">
+              <span class="x">✕</span>
+              <h3>TUTTO AI PRO</h3>
+              <div class="sub">Full access. Natural voice. No compromises.</div>
+              <ul class="benefits">
+                <li>Hands-free voice conversations</li>
+                <li>Real-time web search</li>
+                <li>Cross-session AI memory</li>
+                <li>Custom AI personality</li>
+                <li>PDF import &amp; analysis</li>
+                <li>Save any response</li>
+              </ul>
+              <div class="price-card">
+                <span class="badge">BEST VALUE — SAVE 17%</span>
+                <div class="amt">$99.99 / year</div>
+                <div class="per">$8.33 / month</div>
+              </div>
+              <button class="subscribe">Subscribe Annual</button>
+              <button class="monthly">Continue Monthly · $9.99/mo</button>
+              <div class="restore">Restore Purchases</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="dots" id="dots"></div>
+    </div>
+
+    <div class="rail">
+      <div class="tabs" id="tabs"></div>
+
+      <div id="railText"></div>
+    </div>
+  </div>
+
+  <p class="companion">Part of the same series as <a href="nourishme.html">the NourishMe Walkthrough</a>.</p>
+
+  <footer>tuttoai · interactive walkthrough · screens rebuilt from app/(tabs)/index.tsx, current as of 2026-08-07</footer>
+</div>
+
+<script>
+  const screens = [
+    { key: 'welcome', label: 'Welcome', tag: 'Screen 1 — First open',
+      title: 'The onboarding gate',
+      body: 'The entry point before anything else loads. Nothing about the AI happens yet — that’s deliberate, because the next screen is the one Apple actually cares about.',
+      steps: null, tie: null },
+    { key: 'consent', label: 'Consent', tag: 'Screen 2 — App Store fix',
+      title: 'The screen that reversed a rejection',
+      body: 'Build 1.0 (16) was rejected under Guideline 5.1.1(i)/5.1.2(i): sending user data to a third-party AI provider without disclosing it in-app. This is the fix — it names Anthropic PBC and ElevenLabs by name, states exactly what leaves the device, and it’s non-skippable. It gates 8 separate code paths that call out to a provider.',
+      steps: [
+        'Read the rejection reason against the actual guideline text — a privacy policy link wasn’t enough; the disclosure had to live in-app.',
+        'Audited every code path that calls out to a third party and found 8 separate send sites.',
+        'Wrote a non-skippable consent screen naming Anthropic PBC and ElevenLabs by name, and what specifically leaves the device.',
+        'Wrote one aiAllowed() check and routed all 8 call sites through it, so a future 9th path can’t be missed.',
+        'Made "decline" a real, usable state — the user stays in the app with AI off, not locked out.',
+      ],
+      tie: 'I built a consent gate that names the actual recipients, not a link to a policy page, and audited every call site so nothing reaches a provider unless that flag is true.' },
+    { key: 'chat', label: 'Chat', tag: 'Screen 3 — Core loop',
+      title: 'Chat, with real guardrails underneath',
+      body: 'Looks like a standard chat UI. Underneath: every message here only sends because the consent screen was accepted, and the AI’s API key never touches this client — it goes through the Cloudflare Worker proxy covered in the dossier.',
+      steps: null, tie: null },
+    { key: 'voice', label: 'Voice', tag: 'Screen 4 — Voice mode',
+      title: 'The orb, and the claim behind it',
+      body: 'The permission string under this screen used to claim "all speech processing happens on your device" — untrue, since on-device recognition was never enforced. Caught in a self-audit days after the consent fix and reworded rather than degrading accuracy to make the claim true.',
+      steps: [
+        'After the consent-screen fix, re-read every other permission string for the same failure category, not just the one Apple flagged.',
+        'Found the mic prompt claimed on-device-only processing, but requiresOnDeviceRecognition was never set — iOS was defaulting to server-side transcription.',
+        'Weighed forcing on-device recognition (accurate claim, worse accuracy, unavailable on some devices/locales) against rewording the claim — chose the honest rewrite over degrading the feature.',
+      ],
+      tie: null },
+    { key: 'pro', label: 'Pro', tag: 'Screen 5 — Paywall',
+      title: 'Copy that survived a rewrite',
+      body: '"No interruptions. Ever." — a promise usage limits would eventually break — was dropped for "Save any response." The domain in the title used to be tutto.ai, a parked listing for sale by a third party; every mention of it was replaced with the plain product name after it was caught auto-linking to the listing.',
+      steps: [
+        'Noticed tapping the paywall title opened a domain-resale listing instead of doing nothing.',
+        'Traced it to iOS auto-linkifying the literal string "tutto.ai," which the app used as its own branding in 4 places — a domain it doesn’t own.',
+        'Replaced all 4 instances with the plain product name so there’s nothing left for iOS to linkify.',
+        'Separately, audited the benefit copy for claims usage limits would eventually break, and cut "No interruptions. Ever." before it shipped.',
+      ],
+      tie: null },
+  ];
+
+  const pane = document.getElementById('screen');
+  const dotsEl = document.getElementById('dots');
+  const tabsEl = document.getElementById('tabs');
+  const railEl = document.getElementById('railText');
+  let idx = 0;
+
+  screens.forEach((s, i) => {
+    const d = document.createElement('button');
+    d.className = 'dot' + (i === 0 ? ' on' : '');
+    d.setAttribute('aria-label', s.label);
+    d.addEventListener('click', () => show(i));
+    dotsEl.appendChild(d);
+
+    const t = document.createElement('button');
+    t.className = 'tab' + (i === 0 ? ' on' : '');
+    t.textContent = s.label;
+    t.addEventListener('click', () => show(i));
+    tabsEl.appendChild(t);
+  });
+
+  function show(i) {
+    idx = i;
+    document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+    document.querySelector('.pane[data-pane="' + screens[i].key + '"]').classList.add('active');
+    document.querySelectorAll('.dot').forEach((d, j) => d.classList.toggle('on', j === i));
+    document.querySelectorAll('.tab').forEach((t, j) => t.classList.toggle('on', j === i));
+
+    const s = screens[i];
+    railEl.innerHTML =
+      '<div class="rail-tag">' + s.tag + '</div>' +
+      '<h2>' + s.title + '</h2>' +
+      '<p>' + s.body + '</p>' +
+      (s.steps ? '<div class="steps-label">How I fixed it</div><ol class="steps">' + s.steps.map(function(step) { return '<li>' + step + '</li>'; }).join('') + '</ol>' : '') +
+      (s.tie ? '<div class="tie"><b>Say it like this</b>' + s.tie + '</div>' : '');
+  }
+
+  show(0);
+</script>
+</body>
+</html>
