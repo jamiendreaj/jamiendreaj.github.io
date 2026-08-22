@@ -87,6 +87,14 @@
     background: linear-gradient(115deg, rgba(255,255,255,0.65), rgba(255,255,255,0) 70%);
   }
   .card > * { position: relative; }
+  /* This one card was deliberately reverted from AdaptiveGlass to plain
+     solid — see the caption. A percentage-height fill inside the glass
+     material was rendering invisible; simplifying the surface fixed it. */
+  .card.solid {
+    background: #fff; backdrop-filter: none; -webkit-backdrop-filter: none;
+    border-color: transparent; box-shadow: 0 1px 1px rgba(0,0,0,0.03);
+  }
+  .card.solid::before { display: none; }
   .card b { display: block; font-size: 0.72rem; margin-bottom: 4px; }
   .card p { margin: 0; font-size: 0.68rem; line-height: 1.4; color: #333; }
   .kcal-row { display: flex; justify-content: space-between; align-items: baseline; }
@@ -213,7 +221,7 @@
             </div>
             <div class="content">
               <div class="greet" style="font-size:0.95rem;">This Week</div>
-              <div class="card">
+              <div class="card solid">
                 <div class="weekbars">
                   <div style="height:8%"></div><div style="height:4%"></div><div style="height:0%"></div><div style="height:0%"></div><div style="height:0%"></div><div style="height:96%"></div><div style="height:88%"></div>
                 </div>
@@ -385,7 +393,7 @@
       (s.steps ? '<div class="steps-label">How I fixed it</div><ol class="steps">' + s.steps.map(function(step) { return '<li>' + step + '</li>'; }).join('') + '</ol>' : '') +
       (s.tie ? '<div class="tie"><b>Say it like this</b>' + s.tie + '</div>' : '');
   }
-  show(2);
+  show(0);
 </script>
 </body>
 </html>
