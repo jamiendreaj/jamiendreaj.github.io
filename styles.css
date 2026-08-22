@@ -441,17 +441,6 @@ a:focus-visible,
   color: transparent;
 }
 .splash-buydropt .splash-name { font-size: 0.78rem; text-align: center; color: var(--text-dim); }
-.splash-alter { background: radial-gradient(120% 90% at 50% 20%, #2a3b52, #0b131f); padding: 0 8px; }
-.splash-alter .wordmark {
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  background: var(--metal);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-.splash-alter .splash-name { font-size: 0.78rem; text-align: center; color: var(--text-dim); }
 .project-body h3 {
   font-size: 1.65rem;
   font-weight: 600;
