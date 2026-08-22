@@ -126,23 +126,10 @@
   .app-top .brand { display: flex; align-items: center; gap: 6px; }
   .app-top .pro { color: #cfd8d6; font-size: 0.68rem; display:flex; align-items:center; gap:4px; }
 
-  /* Orb */
+  /* Orb — electric plasma sphere, recreated from the app's real Skia shader (components/plasma-orb.tsx) */
   .orb-stage { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 60px; }
   .orb-label { font-size: 0.68rem; letter-spacing: 0.2em; color: #cfd8d6; margin-bottom: 1.6rem; text-transform: uppercase; }
-  .orb {
-    width: 190px; height: 190px; border-radius: 50%;
-    background:
-      radial-gradient(circle at 35% 30%, rgba(150,230,255,0.95), transparent 45%),
-      radial-gradient(circle at 65% 65%, rgba(60,140,255,0.85), transparent 55%),
-      radial-gradient(circle at 50% 50%, #0d2a4a, #050912 75%);
-    box-shadow: 0 0 60px 10px rgba(80,180,255,0.35), inset 0 0 40px rgba(150,220,255,0.25);
-    animation: pulse 3.2s ease-in-out infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); filter: brightness(1); }
-    50% { transform: scale(1.045); filter: brightness(1.18); }
-  }
-  @media (prefers-reduced-motion: reduce) { .orb { animation: none; } }
+  .orb-canvas { width: 210px; height: 210px; display: block; }
   .orb-caption { margin-top: 2rem; font-size: 1.15rem; font-weight: 700; text-align: center; line-height: 1.3; padding: 0 1.5rem; }
   .orb-caption em { color: #7fd4ff; font-style: normal; }
 
@@ -282,7 +269,7 @@
           <div class="pane" data-pane="voice">
             <div class="orb-stage">
               <div class="orb-label">Listening</div>
-              <div class="orb"></div>
+              <canvas class="orb-canvas" id="orbCanvas" width="210" height="210" aria-label="Animated electric plasma sphere, the app's voice indicator"></canvas>
               <div class="orb-caption">Talk to it in <em>your voice</em></div>
             </div>
           </div>
@@ -405,7 +392,100 @@
       '<p>' + s.body + '</p>' +
       (s.steps ? '<div class="steps-label">How I fixed it</div><ol class="steps">' + s.steps.map(function(step) { return '<li>' + step + '</li>'; }).join('') + '</ol>' : '') +
       (s.tie ? '<div class="tie"><b>Say it like this</b>' + s.tie + '</div>' : '');
+
+    if (s.key === 'voice') { plasmaOrb.start(); } else { plasmaOrb.stop(); }
   }
+
+  // Electric plasma sphere — a JS/Canvas port of the app's real Skia shader
+  // (components/plasma-orb.tsx): domain-warped fbm noise for the swirling
+  // core, ridged noise thresholded into thin veins for the crackling
+  // filaments, a radial mask for the ball, and a soft outer glow. Runs at
+  // low internal resolution and upscales, since this is a decorative loop,
+  // not the app's real GPU shader.
+  var plasmaOrb = (function () {
+    var canvas = document.getElementById('orbCanvas');
+    var ctx = canvas.getContext('2d');
+    var N = 88;
+    var off = document.createElement('canvas');
+    off.width = N; off.height = N;
+    var octx = off.getContext('2d');
+    var img = octx.createImageData(N, N);
+    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var t = 0, raf = null, running = false;
+
+    function hash(x, y) {
+      var s = Math.sin(x * 127.1 + y * 311.7) * 43758.5453;
+      return s - Math.floor(s);
+    }
+    function noise(x, y) {
+      var xi = Math.floor(x), yi = Math.floor(y);
+      var xf = x - xi, yf = y - yi;
+      var u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf);
+      var a = hash(xi, yi), b = hash(xi + 1, yi), c = hash(xi, yi + 1), d = hash(xi + 1, yi + 1);
+      return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
+    }
+    function fbm(x, y) {
+      var v = 0, a = 0.5;
+      for (var i = 0; i < 4; i++) {
+        v += a * noise(x, y);
+        var nx = x * 2 + 19, ny = y * 2 + 7;
+        x = nx; y = ny;
+        a *= 0.5;
+      }
+      return v;
+    }
+    function veins(x, y) {
+      var n = fbm(x, y);
+      var d = 1 - Math.abs(n - 0.5) * 2;
+      return Math.pow(Math.max(d, 0), 7);
+    }
+
+    function paint() {
+      t += reduced ? 0.0025 : 0.011;
+      var data = img.data;
+      for (var y = 0; y < N; y++) {
+        var v = (y / N - 0.5) * 2;
+        for (var x = 0; x < N; x++) {
+          var u = (x / N - 0.5) * 2;
+          var r = Math.sqrt(u * u + v * v);
+          var px = u * 3.2, py = v * 3.2;
+          var wx = fbm(px * 0.8 + t, py * 0.8 + t);
+          var wy = fbm(px * 0.8 - t + 3.3, py * 0.8 - t + 3.3);
+          px += wx * 1.4; py += wy * 1.4;
+          var v1 = veins(px * 1.4 + t * 0.5, py * 1.4 + t * 0.5);
+          var v2 = veins(px * 2.8 - t * 0.7 + 11, py * 2.8 - t * 0.7 + 11);
+          var fil = Math.max(v1, v2 * 0.85);
+          var core = Math.max(0, Math.min(1, 1 - r / 0.7));
+          var reach = Math.max(0, Math.min(1, (0.92 - r) / (0.92 - 0.35)));
+          var energy = fil * reach * 0.9;
+          var halo = Math.exp(-r * 3.2) * 0.3;
+          var edgeFade = Math.max(0, Math.min(1, (0.5 - r) / (0.5 - 0.3)));
+          var alpha = Math.max(0, Math.min(1, energy * 0.95 + halo * 0.9 + core * 0.12)) * edgeFade;
+
+          var hotAmt = Math.pow(energy, 1.4);
+          var cr = 13 * core * 0.45 + 31 * energy * 1.1 + 204 * hotAmt + 31 * halo;
+          var cg = 38 * core * 0.45 + 128 * energy * 1.1 + 242 * hotAmt + 128 * halo;
+          var cb = 128 * core * 0.45 + 255 * energy * 1.1 + 255 * hotAmt + 255 * halo;
+
+          var idx = (y * N + x) * 4;
+          data[idx] = Math.min(255, cr);
+          data[idx + 1] = Math.min(255, cg);
+          data[idx + 2] = Math.min(255, cb);
+          data[idx + 3] = Math.min(255, alpha * 255);
+        }
+      }
+      octx.putImageData(img, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.imageSmoothingEnabled = true;
+      ctx.drawImage(off, 0, 0, canvas.width, canvas.height);
+      if (running) raf = requestAnimationFrame(paint);
+    }
+
+    return {
+      start: function () { if (running) return; running = true; raf = requestAnimationFrame(paint); },
+      stop: function () { running = false; if (raf) cancelAnimationFrame(raf); },
+    };
+  })();
 
   show(0);
 </script>
