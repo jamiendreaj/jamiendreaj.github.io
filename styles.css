@@ -420,6 +420,13 @@ a:focus-visible,
 .phone-screen.splash .splash-name { color: #eef6fa; font-weight: 600; letter-spacing: -0.01em; font-size: 1.05rem; }
 .splash-nourish { background: radial-gradient(120% 90% at 50% 22%, #4A90E8, #0B3E9E); }
 .splash-nourish .app-icon { width: 58%; border-radius: 26%; }
+/* Alter — the app's own deep-sea ground, light from the top right. */
+.splash-alter { background: radial-gradient(120% 90% at 72% 12%, #2E8FD0, #0B3F68 52%, #04203A); }
+.splash-alter .app-icon { width: 56%; border-radius: 24%; }
+
+/* LunaRest — night, so the icon reads as a moon against it. */
+.splash-luna { background: radial-gradient(120% 90% at 50% 20%, #2B2A5E, #0C0A22); }
+.splash-luna .app-icon { width: 56%; border-radius: 24%; }
 .splash-tutto { background: #000; }
 .splash-tutto .app-icon { width: 62%; border-radius: 0; box-shadow: none; }
 .splash-tutto .splash-name { color: #f2f2f2; }
